@@ -11,14 +11,14 @@ pipeline
 		{
 			steps
 			{
-				sh 'scripts/update_repo.sh'
+				sh 'jenkins-pipeline/scripts/update_repo.sh'
 			}
 		}
         stage('SonarQube Analysis') {
 			steps
 			{
                 withSonarQubeEnv(installationName: 'sonarqube') {
-                    sh 'scripts/sonarqube.sh'
+                    sh 'jenkins-pipeline/scripts/sonarqube.sh'
                 }
 			}
         }
@@ -26,28 +26,28 @@ pipeline
 		{
 			steps
 			{
-				sh 'scripts/build.sh'
+				sh 'jenkins-pipeline/scripts/build.sh'
 			}
 		}
 		stage("Test stage")
 		{
 			steps
 			{
-				sh "scripts/test.sh"
+				sh "jenkins-pipeline/scripts/test.sh"
 			}
 		}
 		stage("Push jar to Nexus stage")
 		{
 			steps
 			{
-				sh "scripts/push_to_nexus.sh"
+				sh "jenkins-pipeline/scripts/push_to_nexus.sh"
 			}
 		}
 		stage("Deploy")
 		{
 			steps
 			{
-				sh "scripts/deploy.sh"
+				sh "jenkins-pipeline/scripts/deploy.sh"
 			}
 		}
 	}
