@@ -2,5 +2,5 @@
 
 echo "[BUILD STAGE]"
 
-docker run -v $MVN_LOCAL_REPO:/root/.m2 -v $SRC_REPO:/root/src --network $NETWORK -w /root/src/spring-petclinic $DOCKER_IMAGE \
+docker run -v $MVN_LOCAL_REPO:/root/.m2 -v $SRC_REPO:/root/src --network $NETWORK -w /root/src/ $DOCKER_IMAGE \
 	mvn package
