@@ -1,0 +1,61 @@
+pipeline
+{
+	agent any
+	options {
+        skipStagesAfterUnstable()
+
+    }
+	stages
+	{
+		stage("Update stage")
+		{
+			steps
+			{
+				sh 'scripts/update_repo.sh'
+			}
+		}
+        stage('SonarQube Analysis') {
+			steps
+			{
+                withSonarQubeEnv(installationName: 'sonarqube') {
+                    sh 'scripts/sonarqube.sh'
+                }
+			}
+        }
+		stage("Build stage")
+		{
+			steps
+			{
+				sh 'scripts/build.sh'
+			}
+		}
+		stage("Test stage")
+		{
+			steps
+			{
+				sh "scripts/test.sh"
+			}
+		}
+		stage("Push jar to Nexus stage")
+		{
+			steps
+			{
+				sh "scripts/push_to_nexus.sh"
+			}
+		}
+		stage("Deploy")
+		{
+			steps
+			{
+				sh "scripts/deploy.sh"
+			}
+		}
+	}
+	post
+	{
+		always
+		{
+			echo "Done"
+		}
+	}
+}
