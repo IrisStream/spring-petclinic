@@ -56,7 +56,7 @@ pipeline
                 timeout(time: 1, unit: 'MINUTES')
             }
             steps {             
-                export RESPONCE = '${curl -s --head --request GET deploy:8080 | grep 200}'
+                sh "export RESPONCE=$(curl -s --head --request GET deploy:8080 | grep 200)"
                 script {
                     if (!${RESPONCE})
                     {
