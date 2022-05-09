@@ -51,22 +51,8 @@ pipeline
 			}
 		}
         stage('Check Availability') {
-            options
-            {
-                timeout(time: 1, unit: 'MINUTES')
-            }
             steps {             
-                script {
-                    RESPONCE = sh(script: "curl -s --head  --request GET deploy:8080 | grep 200", returnStdout: true)
-                    if (RESPONCE == "")
-                    {
-                        sh "jenkins-pipeline/scripts/rollback.sh"
-                    }
-                    else
-                    {
-                        echo "Dont rollback"
-                    }
-                }    
+                sh "jenkins-pipeline/scripts/health_check.sh"    
             }
        }
 	}
