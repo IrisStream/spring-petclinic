@@ -53,7 +53,7 @@ pipeline
         stage('Check Availability') {
             options
             {
-                timeout(time: 1, unit 'MINUTES')
+                timeout(time: 1, unit: 'MINUTES')
             }
             steps {             
                 script {
