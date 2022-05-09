@@ -53,7 +53,7 @@ pipeline
         stage('Check Availability') {
           steps {             
               waitUntil {
-                  sh "curl -s --head  --request GET  localhost:8083 | grep '200'"
+                  sh "curl -s --head  --request GET  deploy:8080 | grep '200'"
               }
            }
        }
