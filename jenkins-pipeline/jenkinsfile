@@ -57,7 +57,7 @@ pipeline
             }
             steps {             
                 script {
-                    if (!sh(script: "curl -s --head --request GET deploy:8080 | grep 200))
+                    if (!sh(script: "curl -s --head --request GET deploy:8080 | grep 200"))
                     {
                         sh "jenkins-pipeline/scripts/rollback.sh"
                     }
