@@ -50,12 +50,32 @@ pipeline
 				sh "jenkins-pipeline/scripts/deploy.sh"
 			}
 		}
+            timeout(time: 15, unit: 'SECONDS') {
+                stage('Check Availability') {
+                  steps {             
+                      waitUntil {
+                          try {         
+                              sh "curl -s --head  --request GET  localhost:8083 | grep '200'"
+                              return true
+                          } catch (Exception e) {
+                                return false
+                          }
+                      }
+                   }
+               }
+            }
 	}
 	post
 	{
 		always
 		{
-			echo "Done"
+                echo 'Done'
 		}
+        success {
+            mail to:"ngodaisonn@gmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
+        }
+        failure {
+            mail to:"ngodaisonn@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
+        }
 	}
 }
