@@ -9,7 +9,7 @@ if [ "$(docker ps -aq -f name=deploy)" ]; then
 	docker rm deploy
 fi
 
-pushd /home/remote_user
+pushd /home/remote_user/deploy_scripts
 
 curl -X GET -u deployment:123 http://nexus:8081/repository/maven-snapshots/org/springframework/samples/spring-petclinic/2.6.0-SNAPSHOT/maven-metadata.xml -O
 
