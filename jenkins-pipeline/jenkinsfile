@@ -55,9 +55,13 @@ pipeline
             {
                 timeout(time: 1, unit: 'MINUTES')
             }
+            environment 
+            {
+                RESPONCE = '${curl -s --head --request GET deploy:8080 | grep 200}'
+            }
             steps {             
                 script {
-                    if (!"${curl -s --head  --request GET  deploy:8080 | grep 200}")
+                    if (!${RESPONCE})
                     {
                         sh "jenkins-pipeline/scripts/rollback.sh"
                     }
