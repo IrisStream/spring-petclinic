@@ -16,4 +16,4 @@ snapshot_version = f"{timestamp}-{buildNumber}"
 
 name = f'spring-petclinic-2.6.0-{snapshot_version}'
 
-print(name)
+print(name

@@ -22,13 +22,13 @@ pipeline
                 }
 			}
         }
-		stage("Build stage")
-		{
-			steps
-			{
-				sh 'jenkins-pipeline/scripts/build.sh'
-			}
-		}
+		// stage("Build stage")
+		// {
+		// 	steps
+		// 	{
+		// 		sh 'jenkins-pipeline/scripts/build.sh'
+		// 	}
+		// }
 		stage("Test stage")
 		{
 			steps
