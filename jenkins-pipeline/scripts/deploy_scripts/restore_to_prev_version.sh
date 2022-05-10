@@ -13,6 +13,8 @@ mysql -hmysql -upetclinic -ppetclinic petclinic < ../db_backup/$OLD_VERSION.sql
 
 # Restore web app
 
+export DOCKER_HOST="tcp://172.20.0.1:2375"
+
 docker run -e SPRING_PROFILES_ACTIVE=mysql -d -p 8083:8080 --name deploy --network jenkins_lab_jenkins_net $OLD_VERSION
 
 popd
